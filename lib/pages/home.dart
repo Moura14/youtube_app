@@ -29,8 +29,10 @@ class Home extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () {
-              showSearch(context: context, delegate: DataSeacrh());
+            onPressed: () async {
+              String? result =
+                  await showSearch(context: context, delegate: DataSeacrh());
+              print(result);
             },
             color: Colors.white,
           )
