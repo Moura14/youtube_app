@@ -1,5 +1,8 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:youtube_app/blocs/videos_blocs.dart';
 import 'package:youtube_app/delegates/data_search.dart';
+import 'package:youtube_app/widgets/video_tile.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -32,13 +35,30 @@ class Home extends StatelessWidget {
             onPressed: () async {
               String? result =
                   await showSearch(context: context, delegate: DataSeacrh());
-              print(result);
+              if (result != null) {
+                BlocProvider.getBloc<VideosBloc>().inSearch.add(result);
+              }
             },
             color: Colors.white,
           )
         ],
       ),
-      body: Container(),
+      backgroundColor: Colors.black,
+      body: StreamBuilder(
+        stream: BlocProvider.getBloc<VideosBloc>().outVideos,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemBuilder: ((context, index) {
+                return VideoTile(snapshot.data[index]);
+              }),
+              itemCount: snapshot.data.length,
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }
