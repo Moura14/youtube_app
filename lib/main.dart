@@ -21,11 +21,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'FlutterTube',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          // tested with just a hot  reload.
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
         home: Home(),
       ),
     );
